@@ -20,4 +20,5 @@ dependencies:
     - sphinx-panels
     - sphinxcontrib-napoleon
     - myst-nb
+    - git+https://github.com/ACCESS-NRI/access-ipy-telemetry@main#egg=access_ipy_telemetry
     - -e ..
