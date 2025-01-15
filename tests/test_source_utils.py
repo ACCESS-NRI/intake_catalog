@@ -9,7 +9,6 @@ from access_nri_intake.source.utils import (
     EmptyFileError,
     GenericTimeParser,
     GfdlTimeParser,
-    get_timeinfo,
 )
 
 
@@ -126,7 +125,7 @@ from access_nri_intake.source.utils import (
         ),
     ],
 )
-def test_get_timeinfo(times, bounds, ffreq, expected):
+def test_genericparser_get_timeinfo(times, bounds, ffreq, expected):
     if bounds:
         time = (times[0] + times[1]) / 2
         ds = xr.Dataset(
@@ -147,7 +146,9 @@ def test_get_timeinfo(times, bounds, ffreq, expected):
         units="days since 1900-01-01 00:00:00", calendar="GREGORIAN"
     )
 
-    assert get_timeinfo(ds, filename_frequency=ffreq, time_dim="time") == expected
+    assert (
+        GenericTimeParser(ds, filename_frequency=ffreq, time_dim="time")() == expected
+    )
 
 
 @pytest.mark.parametrize(
